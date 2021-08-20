@@ -7,7 +7,7 @@ from django.urls import reverse
 import misaka
 
 from django.contrib.auth import get_user_model
- User = get_user_model()
+User = get_user_model()
 
 from django import template
 register = template.Library()
@@ -31,11 +31,11 @@ class Group(models.Model):
         return reverse('groups:single',kwargs={'slug':self.slug})
 
     class Meta:
-        ordering = {'name'}
+        ordering = ('name',)
 
 class GroupMember(models.Model):
-    group = models.ForeignKey(Group,releated_name='memberships',on_delete = models.CASCADE)
-    user = models.ForeignKey(User,releated_name='user_groups',on_delete = models.CASCADE)
+    group = models.ForeignKey(Group,related_name='memberships',on_delete = models.CASCADE)
+    user = models.ForeignKey(User,related_name='user_groups',on_delete = models.CASCADE)
 
     def __str__(self):
         return self.user.username

@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import (LoginRequiredMixin,
 from django.urls import reverse
 from django.views import generic
 
+from . import models
 from groups.models import Group,GroupMember
 
 class CreateGroup(LoginRequiredMixin,generic.CreateView):
@@ -32,7 +33,7 @@ class JoinGroup(LoginRequiredMixin,generic.RedirectView):
         except IntegrityError:
             messages.warning(self.request,'Warning already a member!')
         else:
-            messages.success(self.request.'You are now a member!')
+            messages.success(self.request,'You are now a member!')
 
         return super().get(request,*args,**kwargs)
 
